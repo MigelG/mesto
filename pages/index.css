@@ -3,6 +3,8 @@
 .page {
     background-color: #000;
     color: #fff;
+    font-family: Inter;
+    font-style: normal;
 }
 
 .header {
@@ -14,4 +16,63 @@
 
 .header__logo {
 
+}
+
+.main {
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 36px;
+}
+
+.profile__avatar {
+    width: calc(120 / 320 * 100%);
+    border-radius: 50%;
+    margin: 42px 0 26px;
+}
+
+.profile__info {
+    display: grid;
+    grid-template-columns: 1fr 190px 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-bottom: 23px;
+    align-items: center;
+}
+
+.profile__username {
+    margin: 0;  
+    font-size: 27px;
+    font-weight: 500;
+    line-height: 33px;
+    letter-spacing: 0em;
+    text-align: center;
+    grid-column: 2/3;
+}
+
+.profile__edit-button {
+    background: url('../images/buttons/edit-button.png') 50% / auto auto no-repeat;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #fff;
+    margin-left: 9px;
+}
+
+.profile__description {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    grid-column: 2/3;
+}
+
+.profile__add-button {
+    background: url('../images/buttons/add-button.png') 50% / auto auto no-repeat;
+    width: 282px;
+    height: 50px;
+    border: 1px solid #fff;
 }
