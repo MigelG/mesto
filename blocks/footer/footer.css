@@ -1,0 +1,18 @@
+.footer {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #545454;
+    min-height: 86px;
+    display: flex;
+    align-items: center;
+    padding-left: 19px;
+}
+
+@media screen and (min-width: 622px) {
+    .footer {
+        font-size: 18px;
+        padding: 0;
+        min-height: 138px;
+    }
+}

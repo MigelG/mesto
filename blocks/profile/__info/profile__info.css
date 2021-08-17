@@ -1,0 +1,23 @@
+.profile__info {
+    display: grid;
+    grid-template-columns: 1fr 190px 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-bottom: 23px;
+    align-items: center;
+}
+
+@media screen and (min-width: 622px) {
+    .profile__info {
+        margin: 0;
+        flex: 1 1 auto;
+        grid-template-columns: 30px 190px 1fr;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .profile__info {
+        grid-template-columns: 30px 294px 1fr;
+        align-items: end;
+        justify-items: start;
+    }
+}
