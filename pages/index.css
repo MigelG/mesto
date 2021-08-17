@@ -239,3 +239,107 @@
         min-height: 138px;
     }
 }
+
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup__container {
+    background-color: #fff;
+    color: #000;
+    width: calc(100% - 2 * 19px);
+    max-width: 430px;
+    min-height: 322px;
+    box-sizing: border-box;
+    padding: 25px 22px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__container {
+        min-height: 330px;
+        padding: 34px 36px 37px;
+    }
+}
+
+.popup__close-button {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    background-image: url('../images/buttons/close-button.png');
+    background-size: cover;
+    background-color: #0000;
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__close-button {
+        width: 32px;
+        height: 32px;
+        right: -36px;
+    }
+}
+
+.popup__title {
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 22px;
+    letter-spacing: 0em;
+    margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__title {
+        font-size: 24px;
+        line-height: 29px;
+    }
+}
+
+.popup__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.popup__name {
+    width: 100%;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.popup__description {
+    width: 100%;
+    margin-bottom: 45px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+.popup__submit-button {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0em;
+    background-color: #000;
+    color: #fff;
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 2px;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__submit-button {
+        font-size: 18px;
+        height: 50px;
+    }
+}
