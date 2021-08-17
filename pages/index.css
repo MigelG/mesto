@@ -130,6 +130,10 @@
     cursor: pointer;
 }
 
+.profile__edit-button:hover {
+    opacity: .6;
+}
+
 @media screen and (min-width: 768px) {
     .profile__edit-button {
         width: 24px;
@@ -160,6 +164,10 @@
     height: 50px;
     border: 1px solid #fff;
     cursor: pointer;
+}
+
+.profile__add-button:hover {
+    opacity: .6;
 }
 
 @media screen and (min-width: 622px) {
@@ -215,10 +223,20 @@
     white-space: nowrap;
     overflow: hidden;
     margin: 0;
+    max-width: 190px;
 }
 
-.place__like {
-    margin-left: 25px;
+.place__like-button {
+    background-image: url('../images/buttons/like-button.svg');
+    background-color: #0000;
+    width: 22px;
+    height: 19px;
+    border: none;
+    cursor: pointer;
+}
+
+.place__like-button:hover {
+    opacity: .6;
 }
 
 .footer {
@@ -247,7 +265,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, .5);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -283,6 +301,11 @@
     border: none;
     width: 20px;
     height: 20px;
+    cursor: pointer;
+}
+
+.popup__close-button:hover {
+    opacity: .6;
 }
 
 @media screen and (min-width: 768px) {
@@ -335,6 +358,11 @@
     height: 46px;
     border: none;
     border-radius: 2px;
+    cursor: pointer;
+}
+
+.popup__submit-button:hover {
+    opacity: .8;
 }
 
 @media screen and (min-width: 768px) {
