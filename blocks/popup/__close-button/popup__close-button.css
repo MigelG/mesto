@@ -2,7 +2,7 @@
     position: absolute;
     top: -36px;
     right: 0;
-    background-image: url('/images/buttons/close-button.png');
+    background-image: url('../../../images/buttons/close-button.png');
     background-size: cover;
     background-color: #0000;
     border: none;
