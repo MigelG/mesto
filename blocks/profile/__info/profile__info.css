@@ -1,8 +1,9 @@
 .profile__info {
     display: grid;
-    grid-template-columns: 1fr 190px 1fr;
-    grid-template-rows: 1fr 1fr;
-    margin-bottom: 23px;
+    grid-template-columns: 1fr minmax(min-content, max-content) 1fr;
+    grid-template-rows: repeat(2, minmax(min-content, max-content));
+    gap: 6px 0;
+    margin-bottom: 33px;
     align-items: center;
 }
 
@@ -10,13 +11,14 @@
     .profile__info {
         margin: 0;
         flex: 1 1 auto;
-        grid-template-columns: 30px 190px 1fr;
+        grid-template-columns: 30px minmax(min-content, max-content) 1fr;
     }
 }
 
 @media screen and (min-width: 768px) {
     .profile__info {
-        grid-template-columns: 30px 294px 1fr;
+        grid-template-columns: 30px minmax(min-content, max-content) 1fr;
+        gap: 17px 0;
         align-items: end;
         justify-items: start;
     }
