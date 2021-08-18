@@ -15,4 +15,4 @@
 * Настоящий взрослый проект для маленьких джунов.
 
 [Ссылка на репозиторий](https://github.com/MigelG/mesto.git)
-[Ссылка на gh-pages]()
+[Ссылка на gh-pages](https://migelg.github.io/mesto/)
