@@ -3,6 +3,6 @@
     align-items: center;
     justify-content: space-between;
     width: calc(100% - 2 * 20px);
-    min-height: 79px;
+    padding: 25px 20px;
     margin: 0 auto;
 }
