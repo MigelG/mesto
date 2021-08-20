@@ -5,3 +5,7 @@
     height: 19px;
     border: none;
 }
+
+.place__like-button:hover {
+    opacity: .5;
+}

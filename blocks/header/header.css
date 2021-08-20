@@ -1,7 +1,6 @@
 .header {
-    padding: 28px 27px 31px;
-    display: flex;
-    border-bottom: 1px solid #545454;
+    padding: 27px;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media screen and (min-width: 622px) {
