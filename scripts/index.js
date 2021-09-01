@@ -2,7 +2,7 @@
 const editPopup = document.querySelector('.popup_type_edit');
 const openEditPopupButton = document.querySelector('.profile__edit-button');
 const closePopupButton = document.querySelector('.popup__close-button_type_edit');
-const formElement = document.querySelector('.popup__form__type_edit');
+const formElement = document.querySelector('.popup__form_type_edit');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__username');
@@ -18,7 +18,7 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
 };
 
-//Функция отправки формы
+//Функция отправки формы редактирования профиля
 function submitForm(event) {
     event.preventDefault();
     profileName.textContent = nameInput.value;
@@ -36,7 +36,6 @@ closePopupButton.addEventListener('click', () => {
     closePopup(editPopup);
 });
 formElement.addEventListener('submit', submitForm);
-
 
 
 //Попап создания карточек мест
@@ -75,7 +74,7 @@ const closeAddPopupButton = document.querySelector('.popup__close-button_type_ad
 const closeImagePopupButton = document.querySelector('.popup__close-button_type_big-image');
 const placeInput = document.querySelector('.popup__input_type_place');
 const linkInput = document.querySelector('.popup__input_type_link');
-const formAddElement = document.querySelector('.popup__form__type_add');
+const formAddElement = document.querySelector('.popup__form_type_add');
 const imagePopup = document.querySelector('.popup_type_big-image');
 const imagePopupElement = document.querySelector('.popup__image');
 const titlePopupElement = document.querySelector('.popup__caption');
