@@ -2,7 +2,7 @@
 const editPopup = document.querySelector('.popup_type_edit');
 const openEditPopupButton = document.querySelector('.profile__edit-button');
 const closePopupButton = document.querySelector('.popup__close-button_type_edit');
-const formElement = document.querySelector('.popup__form_type_edit');
+const formEditElement = document.querySelector('.popup__form_type_edit');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__username');
@@ -19,7 +19,7 @@ function closePopup(popup) {
 };
 
 //Функция отправки формы редактирования профиля
-function submitForm(event) {
+function submitProfileForm(event) {
     event.preventDefault();
     profileName.textContent = nameInput.value;
     profilJob.textContent = jobInput.value;
@@ -35,7 +35,7 @@ openEditPopupButton.addEventListener('click', () => {
 closePopupButton.addEventListener('click', () => {
     closePopup(editPopup);
 });
-formElement.addEventListener('submit', submitForm);
+formEditElement.addEventListener('submit', submitProfileForm);
 
 
 //Попап создания карточек мест
@@ -65,7 +65,6 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
-const deleteButton = document.querySelectorAll('.place__delete-button');
 const places = document.querySelector('.places');
 const placeTemplate = document.querySelector('#place').content;
 const addPopup = document.querySelector('.popup_type_add');
@@ -79,27 +78,33 @@ const imagePopup = document.querySelector('.popup_type_big-image');
 const imagePopupElement = document.querySelector('.popup__image');
 const titlePopupElement = document.querySelector('.popup__caption');
 
-//Инициализация массива карточек
-initialCards.forEach((card) => {
-    addPlace(card);
-});
+//Функция удаления карточки
+function handleCardDelete(event) {
+    event.target.closest('.place').remove();
+};
+
+//Функция лайка карточки
+function handleCardLike(event) {
+    event.target.classList.toggle('place__like-button_active');
+};
+
+//Функция просмотра картинки
+function handlePicturePreview(event) {
+    imagePopupElement.src = event.target.src;
+    imagePopupElement.alt = event.target.closest('.place').querySelector('.place__title').textContent;
+    titlePopupElement.textContent = event.target.closest('.place').querySelector('.place__title').textContent;
+    openPopup(imagePopup);
+};
 
 //Функция добавления карточки
 function addPlace(card) {
     const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
     placeElement.querySelector('.place__title').textContent = card.name;
     placeElement.querySelector('.place__image').src = card.link;
-    placeElement.querySelector('.place__delete-button').addEventListener('click', (event) => {
-        event.target.closest('.place').remove();
-    })
-    placeElement.querySelector('.place__like-button').addEventListener('click', (event) => {
-        event.target.classList.toggle('place__like-button_active');
-    })
-    placeElement.querySelector('.place__image').addEventListener('click', (event) => {
-        imagePopupElement.src = event.target.src;
-        titlePopupElement.textContent = event.target.closest('.place').querySelector('.place__title').textContent;
-        openPopup(imagePopup);
-    })
+    placeElement.querySelector('.place__image').alt = card.name;
+    placeElement.querySelector('.place__delete-button').addEventListener('click', handleCardDelete);
+    placeElement.querySelector('.place__like-button').addEventListener('click', handleCardLike);
+    placeElement.querySelector('.place__image').addEventListener('click', handlePicturePreview);
     places.prepend(placeElement);
 };
 
@@ -114,6 +119,11 @@ function submitAddForm(event) {
     linkInput.value = '';
     closePopup(addPopup);
 };
+
+//Инициализация массива карточек
+initialCards.forEach((card) => {
+    addPlace(card);
+});
 
 //Обработчики событий
 openAddCardButton.addEventListener('click', () => {
