@@ -90,22 +90,29 @@ function handleCardLike(event) {
 
 //Функция просмотра картинки
 function handlePicturePreview(event) {
+    const cardName = event.target.closest('.place').querySelector('.place__title').textContent;
     imagePopupElement.src = event.target.src;
-    imagePopupElement.alt = event.target.closest('.place').querySelector('.place__title').textContent;
-    titlePopupElement.textContent = event.target.closest('.place').querySelector('.place__title').textContent;
+    imagePopupElement.alt = cardName;
+    titlePopupElement.textContent = cardName;
     openPopup(imagePopup);
 };
 
-//Функция добавления карточки
-function addPlace(card) {
+//Функция создания карточки
+function createCard(card) {
     const placeElement = placeTemplate.querySelector('.place').cloneNode(true);
+    const cardImage = placeElement.querySelector('.place__image');
     placeElement.querySelector('.place__title').textContent = card.name;
-    placeElement.querySelector('.place__image').src = card.link;
-    placeElement.querySelector('.place__image').alt = card.name;
+    cardImage.src = card.link;
+    cardImage.alt = card.name;
     placeElement.querySelector('.place__delete-button').addEventListener('click', handleCardDelete);
     placeElement.querySelector('.place__like-button').addEventListener('click', handleCardLike);
-    placeElement.querySelector('.place__image').addEventListener('click', handlePicturePreview);
-    places.prepend(placeElement);
+    cardImage.addEventListener('click', handlePicturePreview);
+    return placeElement;
+};
+
+//Функция рендеринга карточки
+function renderCard(card) {
+    places.prepend(card);
 };
 
 //Функция отправки формы
@@ -114,7 +121,7 @@ function submitAddForm(event) {
     let card = { name: '', link: '' };
     card.name = placeInput.value;
     card.link = linkInput.value;
-    addPlace(card);
+    renderCard(createCard(card));
     placeInput.value = '';
     linkInput.value = '';
     closePopup(addPopup);
@@ -122,7 +129,7 @@ function submitAddForm(event) {
 
 //Инициализация массива карточек
 initialCards.forEach((card) => {
-    addPlace(card);
+    renderCard(createCard(card));
 });
 
 //Обработчики событий
