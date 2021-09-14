@@ -8,9 +8,19 @@ const jobInput = document.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__username');
 const profilJob = document.querySelector('.profile__job');
 
+//Функция закрытия попапа на клавишу Esc
+const closePopupEsc = (popup) => {
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closePopup(popup);
+        }
+    });
+}
+
 //Функция открытия попапа
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    closePopupEsc(popup);
 };
 
 //Функция закрытия попапа
@@ -77,6 +87,8 @@ const formAddElement = document.querySelector('.popup__form_type_add');
 const imagePopup = document.querySelector('.popup_type_big-image');
 const imagePopupElement = document.querySelector('.popup__image');
 const titlePopupElement = document.querySelector('.popup__caption');
+const popupContainerList = Array.from(document.querySelectorAll('.popup__container'));
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 //Функция удаления карточки
 function handleCardDelete(event) {
@@ -143,3 +155,13 @@ closeImagePopupButton.addEventListener('click', () => {
     closePopup(imagePopup);
 });
 formAddElement.addEventListener('submit', submitAddForm);
+popupList.forEach((popup) => {
+    popup.addEventListener('click', () => {
+        closePopup(popup);
+    });
+});
+popupContainerList.forEach((popupContainer) => {
+    popupContainer.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+});

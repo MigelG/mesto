@@ -1,14 +1,10 @@
 .popup__input {
     width: 100%;
-    margin-bottom: 30px;
     padding-bottom: 9px;
+    margin-bottom: 5px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
     font-size: 14px;
     line-height: 17px;
     letter-spacing: 0em;
-}
-
-.popup__input:nth-child(2) {
-    margin-bottom: 43px;
 }
