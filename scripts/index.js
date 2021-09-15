@@ -9,23 +9,23 @@ const profileName = document.querySelector('.profile__username');
 const profilJob = document.querySelector('.profile__job');
 
 //Функция закрытия попапа на клавишу Esc
-const closePopupEsc = (popup) => {
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            closePopup(popup);
-        }
-    });
+const closePopupEsc = (event) => {
+    const popup = document.querySelector('.popup_opened');
+    if (event.key === 'Escape') {
+        closePopup(popup);
+    }
 }
 
 //Функция открытия попапа
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    closePopupEsc(popup);
+    document.addEventListener('keydown', closePopupEsc);
 };
 
 //Функция закрытия попапа
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closePopupEsc);
 };
 
 //Функция отправки формы редактирования профиля
@@ -134,8 +134,7 @@ function submitAddForm(event) {
     card.name = placeInput.value;
     card.link = linkInput.value;
     renderCard(createCard(card));
-    placeInput.value = '';
-    linkInput.value = '';
+    formAddElement.reset();
     closePopup(addPopup);
 };
 
@@ -157,7 +156,9 @@ closeImagePopupButton.addEventListener('click', () => {
 formAddElement.addEventListener('submit', submitAddForm);
 popupList.forEach((popup) => {
     popup.addEventListener('click', () => {
-        closePopup(popup);
+        if (popup.classList.contains('popup')) {
+            closePopup(popup);
+        }
     });
 });
 popupContainerList.forEach((popupContainer) => {
