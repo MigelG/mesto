@@ -1,9 +1,10 @@
 export class Card {
     static _imagePopup = document.querySelector('.popup_type_big-image');
-    constructor(data, cardSelector) {
+    constructor(data, cardSelector, handleOpenPopup) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
+        this._handleOpenPopup = handleOpenPopup;
     }
 
     _getTemplate() {
@@ -18,11 +19,12 @@ export class Card {
 
     generateCard() {
         this._element = this._getTemplate();
+        const _image = this._element.querySelector('.place__image');
         this._setEventListeners();
 
         this._element.querySelector('.place__title').textContent = this._name;
-        this._element.querySelector('.place__image').src = this._link;
-        this._element.querySelector('.place__image').alt = this._name;
+        _image.src = this._link;
+        _image.alt = this._name;
 
         return this._element;
     }
@@ -36,8 +38,8 @@ export class Card {
         this._element.querySelector('.place__delete-button').addEventListener('click', () => {
             this._handleCardDelete();
         });
-        this._element.querySelector('.place__image').addEventListener('click', () => {
-            this._handleOpenPopup();
+        this._element.querySelector('.place__image').addEventListener('click', (event) => {
+            this._handleOpenPopup(event);
         });
         _closePopupButton.addEventListener('click', () => {
             this._handleClosePopup();
@@ -55,16 +57,7 @@ export class Card {
     }
 
     _handleCardDelete() {
-        this._element.closest('.place').remove();
-    }
-
-    _handleOpenPopup() {
-        const _imagePopupElement = document.querySelector('.popup__image');
-        const _titlePopupElement = document.querySelector('.popup__caption');
-        _imagePopupElement.src = this._link;
-        _imagePopupElement.alt = this._name;
-        _titlePopupElement.textContent = this._name;
-        Card._imagePopup.classList.add('popup_opened');
+        this._element.remove();
     }
 
     _handleClosePopup() {
