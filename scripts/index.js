@@ -29,7 +29,7 @@ const initialCards = [
     }
 ];
 
-//Попап редактирования профиля
+//Глобальные переменные
 const editPopup = document.querySelector('.popup_type_edit');
 const openEditPopupButton = document.querySelector('.profile__edit-button');
 const closeEditPopupButton = document.querySelector('.popup__close-button_type_edit');
@@ -50,6 +50,7 @@ const popupList = Array.from(document.querySelectorAll('.popup'));
 const imagePopup = document.querySelector('.popup_type_big-image');
 const imagePopupElement = document.querySelector('.popup__image');
 const titlePopupElement = document.querySelector('.popup__caption');
+const closePopupButton = document.querySelector('.popup__close-button_type_big-image');
 
 //Функция закрытия попапа на клавишу Esc
 const closePopupEsc = (event) => {
@@ -81,7 +82,8 @@ function submitProfileForm(event) {
 
 //Функция создания новой карточки
 function createCard(data) {
-    return new Card(data, '#place', handlePicturePreview);
+    const card = new Card(data, '#place', handlePicturePreview);
+    return card.generateCard();
 }
 
 //Обработчики событий
@@ -95,11 +97,15 @@ closeEditPopupButton.addEventListener('click', () => {
 });
 formEditElement.addEventListener('submit', submitProfileForm);
 
+//Функция рендеринга карточки
+function renderCard(data) {
+    const card = createCard(data);
+    places.prepend(card);
+}
+
 //Отрисовка карточек из объекта
 initialCards.forEach((item) => {
-    const card = createCard(item);
-    const cardElement = card.generateCard();
-    places.prepend(cardElement);
+    renderCard(item);
 });
 
 //Объект с параметрами форм
@@ -123,9 +129,7 @@ function submitAddForm(event) {
     let card = { name: '', link: '' };
     card.name = placeInput.value;
     card.link = linkInput.value;
-    const newCard = createCard(card);
-    const cardElement = newCard.generateCard();
-    places.prepend(cardElement);
+    renderCard(card);
     formAddElement.reset();
     formAdd.toggleButtonState();
     closePopup(addPopup);
@@ -147,7 +151,9 @@ openAddCardButton.addEventListener('click', () => {
 closeAddPopupButton.addEventListener('click', () => {
     closePopup(addPopup);
 });
-
+closePopupButton.addEventListener('click', () => {
+    closePopup(imagePopup);
+});
 formAddElement.addEventListener('submit', submitAddForm);
 popupList.forEach((popup) => {
     popup.addEventListener('mousedown', () => {
@@ -157,7 +163,7 @@ popupList.forEach((popup) => {
     });
 });
 popupContainerList.forEach((popupContainer) => {
-    popupContainer.addEventListener('click', (event) => {
+    popupContainer.addEventListener('mousedown', (event) => {
         event.stopPropagation();
     });
 });
