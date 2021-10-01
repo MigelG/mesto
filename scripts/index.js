@@ -1,33 +1,6 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-
-//Объект с карточками мест
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+import { initialCards } from "./initialCards.js";
 
 //Глобальные переменные
 const editPopup = document.querySelector('.popup_type_edit');
@@ -126,7 +99,7 @@ formAdd.enableValidation();
 //Функция отправки формы
 function submitAddForm(event) {
     event.preventDefault();
-    let card = { name: '', link: '' };
+    const card = { name: '', link: '' };
     card.name = placeInput.value;
     card.link = linkInput.value;
     renderCard(card);
