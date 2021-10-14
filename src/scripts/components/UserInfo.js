@@ -8,10 +8,8 @@ export class UserInfo {
         return { name: this._userName.textContent, job: this._userJob.textContent };
     }
 
-    setUserInfo() {
-        const nameInput = document.querySelector('.popup__input_type_name');
-        const jobInput = document.querySelector('.popup__input_type_job');
-        this._userName.textContent = nameInput.value;
-        this._userJob.textContent = jobInput.value;
+    setUserInfo(info) {
+        this._userName.textContent = info.name;
+        this._userJob.textContent = info.job;
     }
 }
