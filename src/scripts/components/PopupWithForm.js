@@ -11,7 +11,11 @@ export class PopupWithForm extends Popup {
         const data = {};
         const inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
         inputList.forEach(input => {
-            data[input.id] = input.value;
+            if (input.id === 'placeName') {
+                data['name'] = input.value;
+            } else {
+                data[input.id] = input.value;
+            }
         })
         return data;
     }
@@ -19,7 +23,7 @@ export class PopupWithForm extends Popup {
     setEventListeners() {
         super.setEventListeners();
         this._form.addEventListener('submit', (event) => {
-            this._submit(event);
+            this._submit(event, this._getInputValues());
             this.close();
         });
     }

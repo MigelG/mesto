@@ -4,15 +4,13 @@ import { FormValidator } from "../scripts/components/FormValidator.js";
 import { Section } from "../scripts/components/Section.js";
 import { PopupWithImage } from "../scripts/components/PopupWithImage.js";
 import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
-import { initialCards } from "../scripts/initialCards.js";
-import { dataForm } from "../scripts/dataForm.js";
+import { initialCards } from "../scripts/utils/constants.js";
+import { dataForm } from "../scripts/utils/constants.js";
 import { UserInfo } from "../scripts/components/UserInfo.js";
 import { openEditPopupButton } from "../scripts/utils/constants.js";
 import { nameInput } from "../scripts/utils/constants.js";
 import { jobInput } from "../scripts/utils/constants.js";
 import { openAddCardButton } from "../scripts/utils/constants.js";
-import { placeInput } from "../scripts/utils/constants.js";
-import { linkInput } from "../scripts/utils/constants.js";
 
 const popupTypeAdd = new PopupWithForm(submitAddForm, '.popup_type_add');
 popupTypeAdd.setEventListeners();
@@ -23,17 +21,16 @@ popupTypeEdit.setEventListeners();
 const userInfo = new UserInfo({ userName: '.profile__username', userJob: '.profile__job' });
 
 const popupTypeImage = new PopupWithImage('.popup_type_big-image');
+popupTypeImage.setEventListeners();
 
 //Открытие попапа просмотра картинки
 function handlePicturePreview(name, link) {
     popupTypeImage.open(name, link);
-    popupTypeImage.setEventListeners();
 };
 
 //Функция отправки формы редактирования профиля
-function submitProfileForm(event) {
+function submitProfileForm(event, data) {
     event.preventDefault();
-    const data = popupTypeEdit._getInputValues();
     userInfo.setUserInfo(data);
 };
 
@@ -47,6 +44,7 @@ openEditPopupButton.addEventListener('click', () => {
 
 //Открытие попапа создания карточки
 openAddCardButton.addEventListener('click', () => {
+    formAdd.toggleButtonState();
     popupTypeAdd.open();
 });
 
@@ -56,20 +54,10 @@ formEdit.enableValidation();
 const formAdd = new FormValidator(dataForm, '.popup__form_type_add');
 formAdd.enableValidation();
 
-//Один экземпляр класса Section для всех новых карточек
-const newCard = new Section({
-    items: {},
-    renderer: () => { },
-},
-    '.places'
-);
-
 //Функция отправки формы создания карточки
-function submitAddForm(event) {
+function submitAddForm(event, data) {
     event.preventDefault();
-    const cardData = { name: placeInput.value, link: linkInput.value };
-    createCard(cardData, newCard);
-    formAdd.toggleButtonState();
+    cardsList.addItem(createCard(data));
     popupTypeAdd.close();
 };
 
@@ -77,7 +65,7 @@ function submitAddForm(event) {
 const cardsList = new Section({
     items: initialCards,
     renderer: (item) => {
-        createCard(item, cardsList);
+        cardsList.addItem(createCard(item));
     },
 },
     '.places'
@@ -86,7 +74,7 @@ const cardsList = new Section({
 cardsList.renderItems();
 
 //Функция создания новой карточки
-function createCard(item, section) {
+function createCard(item) {
     const card = new Card(item, '#place', handlePicturePreview);
-    section.addItem(card.generateCard());
+    return card.generateCard();
 }
