@@ -44,7 +44,7 @@ export class FormValidator {
     };
 
     //Функция переключения состояния кнопки сабмит
-    toggleButtonState() {
+    _toggleButtonState() {
         if (this._hasInvalidInput()) {
             this._submitButton.classList.add(this._inactiveButtonClass);
             this._submitButton.setAttribute('disabled', '');
@@ -56,11 +56,11 @@ export class FormValidator {
 
     //Функция-установщик слушателей событий
     _setEventListeners() {
-        this.toggleButtonState(this._inputList);
+        this._toggleButtonState(this._inputList);
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
-                this.toggleButtonState(this._inputList, this._submitButton);
+                this._toggleButtonState(this._inputList, this._submitButton);
             });
         });
     };
@@ -72,4 +72,11 @@ export class FormValidator {
         });
         this._setEventListeners();
     };
+
+    resetValidation() {
+        this._toggleButtonState();
+        this._inputList.forEach((inputElement) => {
+            this._hideError(inputElement);
+        });
+    }
 }

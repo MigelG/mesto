@@ -5,17 +5,14 @@ export class PopupWithForm extends Popup {
         super(popupSelector);
         this._submit = submit;
         this._form = this._popup.querySelector('.popup__form');
+        this._submitButton = this._form.querySelector('.popup__submit-button');
+        this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
     }
 
     _getInputValues() {
         const data = {};
-        const inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
-        inputList.forEach(input => {
-            if (input.id === 'placeName') {
-                data['name'] = input.value;
-            } else {
-                data[input.id] = input.value;
-            }
+        this._inputList.forEach(input => {
+            data[input.name] = input.value;
         })
         return data;
     }
@@ -24,12 +21,15 @@ export class PopupWithForm extends Popup {
         super.setEventListeners();
         this._form.addEventListener('submit', (event) => {
             this._submit(event, this._getInputValues());
-            this.close();
         });
     }
 
     close() {
         super.close();
         this._form.reset();
+    }
+
+    toggleSubmitButton(text) {
+        this._submitButton.textContent = text;
     }
 }

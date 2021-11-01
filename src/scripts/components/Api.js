@@ -12,12 +12,7 @@ export class Api {
         return fetch(this._baseUrl + '/cards', {
             headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
 
     addCard(data) {
@@ -26,24 +21,14 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(data),
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
 
     getUserInfo() {
         return fetch(this._baseUrl + '/users/me', {
             headers: this._headers
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
 
     saveUserInfo(data) {
@@ -52,12 +37,7 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(data),
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
 
     deleteCard(id) {
@@ -65,12 +45,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
 
     likeCard(id, method) {
@@ -78,12 +53,7 @@ export class Api {
             method: `${method}`,
             headers: this._headers,
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
 
     editAvatar(avatar) {
@@ -92,11 +62,12 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(avatar),
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject('Произошла какая-то ошибка');
-            });
+            .then(this._checkResponse);
     }
+
+    _checkResponse(res) {
+        if (res.ok) { return res.json() }
+        return Promise.reject('Произошла какая-то ошибка');
+    }
+
 }

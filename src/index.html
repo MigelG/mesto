@@ -58,7 +58,7 @@
             <button type="button" class="button popup__close-button popup__close-button_type_add"></button>
             <h2 class="popup__title">Новое место</h2>
             <form name="addPlaceForm" class="popup__form popup__form_type_add" novalidate>
-                <input id="placeName" type="text" name="place" placeholder="Название"
+                <input id="placeName" type="text" name="name" placeholder="Название"
                     class="popup__input popup__input_type_place" required minlength="2" maxlength="30">
                 <span id="placeName-error" class="popup__error"></span>
                 <input id="link" type="url" name="link" placeholder="Ссылка на картинку"
@@ -92,9 +92,9 @@
             <button type="button" class="button popup__close-button popup__close-button_type_avatar"></button>
             <h2 class="popup__title">Обновить аватар</h2>
             <form name="editAvatarForm" class="popup__form popup__form_type_avatar" novalidate>
-                <input id="avatar-link" type="url" name="link" placeholder="Введите ссылку"
+                <input id="avatar" type="url" name="avatar" placeholder="Введите ссылку"
                     class="popup__input popup__input_type_avatar" required>
-                <span id="avatar-link-error" class="popup__error"></span>
+                <span id="avatar-error" class="popup__error"></span>
                 <button type="submit" class="popup__submit-button">Сохранить</button>
             </form>
         </div>

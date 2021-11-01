@@ -37,10 +37,12 @@ function handlePicturePreview(item) {
 };
 
 //Открытие попапа подтверждения удаления карточки
-let currentId = '';
-function handleDeleteCard(id) {
+let currentId;
+let currentCard;
+function handleDeleteCard(id, card) {
     popupTypeDelete.open();
     currentId = id;
+    currentCard = card;
 };
 
 //Функция отправки формы удаления карточки
@@ -48,7 +50,11 @@ function submitDeleteForm(event) {
     event.preventDefault();
     api.deleteCard(currentId)
         .then(() => {
-            //delete card
+            currentCard.removeCard();
+            popupTypeDelete.close();
+        })
+        .catch(() => {
+            console.log('Запрос отклонен');
         });
 }
 
@@ -57,47 +63,71 @@ openEditPopupButton.addEventListener('click', () => {
     const info = userInfo.getUserInfo();
     nameInput.value = info.name;
     jobInput.value = info.about;
+    formEdit.resetValidation();
     popupTypeEdit.open();
 });
 
 //Функция отправки формы редактирования профиля
 function submitProfileForm(event, data) {
     event.preventDefault();
+    popupTypeEdit.toggleSubmitButton('Сохранение...');
     api.saveUserInfo(data)
         .then(res => {
             userInfo.setUserInfo(res);
+            popupTypeEdit.close();
+        })
+        .catch(() => {
+            console.log('Запрос отклонен');
+        })
+        .finally(() => {
+            popupTypeEdit.toggleSubmitButton('Сохранить');
         });
 };
 
 //Открытие попапа редактирования аватара
 openAvatarPopupButton.addEventListener('click', () => {
+    formAvatar.resetValidation();
     popupTypeAvatar.open();
 })
 
 //Функция отправки формы редактирования аватара
-function submitAvatarForm(event) {
+function submitAvatarForm(event, data) {
     event.preventDefault();
-    const link = document.querySelector('.popup__input_type_avatar').value;
-    api.editAvatar({ avatar: link })
+    popupTypeAvatar.toggleSubmitButton('Сохранение...');
+    api.editAvatar({ avatar: data.avatar })
         .then((res) => {
-            document.querySelector('.profile__img').src = res.avatar;
+            userInfo.setUserInfo(res);
+            popupTypeAvatar.close();
+        })
+        .catch(() => {
+            console.log('Запрос отклонен');
+        })
+        .finally(() => {
+            popupTypeAvatar.toggleSubmitButton('Сохранить');
         });
 };
 
 //Открытие попапа создания карточки
 openAddCardButton.addEventListener('click', () => {
-    formAdd.toggleButtonState();
+    formAdd.resetValidation();
     popupTypeAdd.open();
 });
 
 //Функция отправки формы создания карточки
 function submitAddForm(event, item) {
     event.preventDefault();
+    popupTypeAdd.toggleSubmitButton('Сохранение...');
     const promis = api.addCard(item);
     promis.then(data => {
         renderCard(data);
-    });
-    popupTypeAdd.close();
+        popupTypeAdd.close();
+    })
+        .catch(() => {
+            console.log('Запрос отклонен');
+        })
+        .finally(() => {
+            popupTypeAdd.toggleSubmitButton('Создать');
+        });
 };
 
 //Функция рендеринга карточки
@@ -120,15 +150,17 @@ function renderCard(data) {
 };
 
 //Функция лайка карточки
-function handleLikeCard(event, cardId, isLiked) {
+function handleLikeCard(cardId, isLiked, thisCard) {
     let promis;
     isLiked
         ? promis = api.likeCard(cardId, 'DELETE')
         : promis = api.likeCard(cardId, 'PUT');
     promis
         .then((res) => {
-            event.target.closest('.place').querySelector('.place__like-score').textContent = res.likes.length;
-            event.target.closest('.place__like-button').classList.toggle('place__like-button_active');
+            thisCard.updateLikes(res.likes.length);
+        })
+        .catch(() => {
+            console.log('Запрос отклонен');
         });
 }
 

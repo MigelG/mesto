@@ -10,8 +10,7 @@ export class PopupWithConfirm extends Popup {
     setEventListeners() {
         super.setEventListeners();
         this._form.addEventListener('submit', (event) => {
-            this._submit(event, this.deleteFunc);
-            this.close();
+            this._submit(event);
         });
     }
 }
